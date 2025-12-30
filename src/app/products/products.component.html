@@ -1,0 +1,80 @@
+<section class="products">
+  <header class="products__header">
+    <div>
+      <h1>Products</h1>
+      <p>Manage your inventory with the mock API.</p>
+    </div>
+    <button type="button" class="ghost" (click)="logout()">Logout</button>
+  </header>
+
+  <div class="products__grid">
+    <form class="card" [formGroup]="form" (ngSubmit)="addProduct()">
+      <h2>Add product</h2>
+      <label>
+        Name
+        <input type="text" formControlName="name" placeholder="Product name" />
+      </label>
+      <label>
+        Price
+        <input type="number" formControlName="price" min="0" step="0.01" />
+      </label>
+      <label>
+        Stock
+        <input type="number" formControlName="stock" min="0" step="1" />
+      </label>
+      <button type="submit">Add product</button>
+    </form>
+
+    <div class="card card--table">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (product of products$ | async; track product.id) {
+            <tr>
+              <td>{{ product.name }}</td>
+              <td>{{ product.price | currency }}</td>
+              <td>{{ product.stock }}</td>
+              <td>
+                <span
+                  class="status"
+                  [class.status--out]="product.stock === 0"
+                >
+                  {{ product.stock === 0 ? 'Out of Stock' : 'In Stock' }}
+                </span>
+              </td>
+              <td>
+                <button type="button" class="ghost" (click)="deleteProduct(product.id)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <p class="empty" *ngIf="(products$ | async)?.length === 0">
+        No products yet. Add your first product.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="modal" *ngIf="selectedProductId !== null">
+  <div class="modal__backdrop" (click)="cancelDelete()"></div>
+  <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="delete-title">
+    <h2 id="delete-title">Delete product?</h2>
+    <p>This action cannot be undone.</p>
+    <div class="modal__actions">
+      <button type="button" class="ghost" (click)="cancelDelete()">Cancel</button>
+      <button type="button" class="danger" (click)="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>

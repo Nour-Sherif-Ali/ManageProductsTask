@@ -1,0 +1,41 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: light;
+  --ink-900: #0f172a;
+  --ink-700: #334155;
+  --ink-500: #64748b;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --accent: #0f172a;
+  --accent-soft: #e2e8f0;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --shadow-lg: 0 25px 60px rgba(15, 23, 42, 0.12);
+  --shadow-md: 0 16px 32px rgba(15, 23, 42, 0.08);
+}
+
+body {
+  margin: 0;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  color: var(--ink-900);
+  background:
+    radial-gradient(circle at top left, rgba(148, 163, 184, 0.2), transparent 45%),
+    radial-gradient(circle at 20% 20%, rgba(226, 232, 240, 0.65), transparent 35%),
+    #eef2f6;
+  min-height: 100vh;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+input,
+button {
+  outline-color: rgba(15, 23, 42, 0.3);
+}
